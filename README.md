@@ -29,4 +29,4 @@ Choose one or more columns from the dropdown menu to plot.
 Click on the "Upload and Visualize" button to plot the selected columns.
 The plots will be displayed on the web page below the upload form.
 
-Note: 
+Note: The program is not working properly. I'll work on it but here's the best I complete.
