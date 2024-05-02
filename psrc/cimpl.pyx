@@ -1,23 +1,13 @@
 # cimpl.pyx
 
-cimport numpy as np
-cimport cython
+cdef extern from "solver.h":
+    void row_reduce(double** matrix, int rows, int cols)
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
-cdef double calculate_mean(double[:] data):
-    cdef double sum = 0.0
-    cdef int count = 0
-    
-    for value in data:
-        sum += value
-        count += 1
-        
-    if count > 0:
-        return sum / count
-    else:
-        return 0.0
-
-def process_data(filename):
-    cdef np.ndarray[np.double_t, ndim=1] data = np.loadtxt(filename)
-    return calculate_mean(data)
+def row_reduce(matrix, rows, cols):
+    cdef int i, j
+    cdef double **arr = <double **> malloc(rows * sizeof(double *))
+    for i in range(rows):
+        arr[i] = <double *> malloc(cols * sizeof(double))
+        for j in range(cols):
+            arr[i][j] = matrix[i][j]
+    row_reduce(arr, rows, cols)

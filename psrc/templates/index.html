@@ -1,99 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Visualization</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 30px;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        input[type="file"] {
-            margin-bottom: 10px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        #visualization {
-            margin-top: 20px;
-            text-align: center;
-            /* Center the visualization */
-        }
-    </style>
-</head>
-
-<body>
-    <h1>Data Visualization</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" id="fileInput"><br>
-        <label for="columns">Select columns to plot:</label>
-        <select name="columns[]" id="columns" multiple>
-            {% for column in columns %}
-            <option value="{{ column }}">{{ column }}</option>
-            {% endfor %}
-        </select><br>
-        <input type="submit" value="Upload and Visualize">
-    </form>
-    <div id="visualization"></div>
+    <title>Matrix Solver</title>
     <script>
-        async function uploadFile() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-            const formData = new FormData();
-            formData.append('file', file);
+        function generateMatrixFields() {
+            var rows = document.getElementById('rows').value;
+            var cols = document.getElementById('cols').value;
+            var matrixContainer = document.getElementById('matrix-container');
+            matrixContainer.innerHTML = ''; 
 
-            try {
-                const response = await fetch('/upload', {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await response.json();
-                document.getElementById('visualization').innerHTML = data.visualization;
-            } catch (error) {
-                console.error('Error:', error);
+            for (var i = 0; i < rows; i++) {
+                for (var j = 0; j < cols; j++) {
+                    var input = document.createElement('input');
+                    input.type = 'number';
+                    input.name = 'element_' + i + '_' + j;
+                    input.placeholder = 'Element ' + (i + 1) + '-' + (j + 1);
+                    matrixContainer.appendChild(input);
+                    matrixContainer.appendChild(document.createElement('br'));
+                }
             }
         }
-
-        document.getElementById('fileInput').addEventListener('change', uploadFile);
     </script>
+</head>
+<body>
+    <h1>Matrix Solver</h1>
+    <form action="/solve" method="post" onsubmit="generateMatrixFields()">
+        <label for="rows">Number of Rows:</label>
+        <input type="number" id="rows" name="rows"><br><br>
+        <label for="cols">Number of Columns:</label>
+        <input type="number" id="cols" name="cols"><br><br>
+        <button type="submit">Enter Matrix</button>
+    </form>
+    <div id="matrix-container"></div>
 </body>
-
 </html>
