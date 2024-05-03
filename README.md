@@ -26,5 +26,3 @@ Click on the "Solve" button to perform row reduction and obtain the row-reduced 
 
 4. Visualize Results:
 The row-reduced echelon form of the matrix will be displayed on the web page.
-
-Note: The program is a work in progress and may not function properly in its current state. Further improvements are ongoing.

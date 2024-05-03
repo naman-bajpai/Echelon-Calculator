@@ -26,13 +26,14 @@
 </head>
 <body>
     <h1>Matrix Solver</h1>
-    <form action="/solve" method="post" onsubmit="generateMatrixFields()">
+    <form action="/solve" method="post">
         <label for="rows">Number of Rows:</label>
-        <input type="number" id="rows" name="rows"><br><br>
+        <input id="rows" type="number" id="rows" name="rows"><br><br>
         <label for="cols">Number of Columns:</label>
-        <input type="number" id="cols" name="cols"><br><br>
-        <button type="submit">Enter Matrix</button>
+        <input id="cols" onblur="generateMatrixFields()" type="number" id="cols" name="cols"><br><br>
+        
+        <div id="matrix-container"></div>
+        <button type="submit">Solve!</button>
     </form>
-    <div id="matrix-container"></div>
 </body>
 </html>

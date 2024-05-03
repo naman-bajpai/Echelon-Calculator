@@ -1,1 +1,0 @@
-void get_matrix_size(int *rows, int *cols);

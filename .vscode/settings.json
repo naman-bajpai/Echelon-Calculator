@@ -5,5 +5,6 @@
       "binaryPath": "/workspaces/devcontainer-test/main",
       "binaryArgs": [],
     }
-  ]
+  ],
+  "remote.autoForwardPortsFallback": 0
 }
